@@ -8,12 +8,10 @@ void Issue(ROB &cur_ROB, Res_add &cur_Ra, Res_loa &cur_Rl){
     Reservation_name tmp_name;
     ROB_cell tmp_rob;
     uint cur_instruction;
-    uint hash_value;
 
     if(stop_issue)  return;
     memcpy(&cur_instruction, _memory + _pc, sizeof(uint));
     cur_dins=cur_instruction;
-    hash_value=(_pc>>2)&63;
     tmp.Busy=true;
     tmp.isExing=false;
     tmp.isReady=false;
@@ -106,7 +104,7 @@ void Issue(ROB &cur_ROB, Res_add &cur_Ra, Res_loa &cur_Rl){
     if(cur_dins._format>=28 && cur_dins._format<=33){
         tmp_rob.cur_pc = _pc;
         tmp_rob.cur_imm = cur_dins._immediate;
-        if(judge_branch(hash_value, cur_dins))  _pc += cur_dins._immediate, tmp_rob.isTaken = true;
+        if(judge_branch(((_pc>>2)&63), cur_dins))  _pc += cur_dins._immediate, tmp_rob.isTaken = true;
         else  _pc += 4, tmp_rob.isTaken = false;
     }
     else if(cur_dins._format == JAL){

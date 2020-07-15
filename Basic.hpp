@@ -40,7 +40,7 @@ struct ROB_cell{
     Reservation_name Qs;
     uint Vs;
 
-    ROB_cell() {Busy=false, Qi=NAME0, Regs=0, Qs=NAME0, Vs=0;}
+    ROB_cell() {Busy=false, Qi=NAME0, Regs=0, Qs=NAME0, Vs=0, target=0;}
 };
 
 struct Reservation_cell{
