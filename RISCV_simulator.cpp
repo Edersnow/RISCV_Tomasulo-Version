@@ -28,12 +28,13 @@ int main()
     printf("Freopen successfully!\n");
     */
 
-
+    /*
     if(!freopen("testcases/bulgarian.data", "r", stdin)){
         printf("Error in reading!\n");
         return 0;
     }
     //printf("Freopen successfully!\n");
+    */
 
 
     while(scanf("%s", _input)!=EOF){
