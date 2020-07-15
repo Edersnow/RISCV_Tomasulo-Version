@@ -29,12 +29,9 @@ int main()
             //_memory[memory_start-2], _memory[memory_start-3], _memory[memory_start-4]);
         }
     }
-    //printf("Read data successfully!\n");
 
     //simulate
     while (!is_end){
-        //printf("%u\n", cnt++);
-        //++cnt;
         Commit(rob, memory_access, add_reservation, loa_reservation, adders);
         Broadcast(adders, memory_access, add_reservation, loa_reservation, rob);
         Ex_add(add_reservation, adders);
@@ -42,7 +39,6 @@ int main()
         Issue(rob, add_reservation, loa_reservation);
     }
 
-    //printf("%u\n", cnt);
     //printf("Total prediction: %u\n", total_prediction);
     //printf("Correct prediction: %u\n", correct_prediction);
     //printf("Prediction accuracy: %.2f%\n", (double(correct_prediction)/total_prediction)*100);

@@ -12,6 +12,7 @@ struct ROB;
 
 
 
+//Add reservation
 struct Res_add{
     Reservation_cell Arr[4];
     Reservation_name Name[4];
@@ -35,6 +36,7 @@ struct Res_add{
 
 
 
+//Load buffer
 struct Res_loa{
     Reservation_cell Arr[5];
     Reservation_name Name[5];
@@ -60,6 +62,7 @@ struct Res_loa{
 
 
 
+//Adders
 struct Adder{
     bool is_empty;
     Reservation_name target_name;
@@ -72,6 +75,7 @@ struct Adder{
 
 
 
+//Memory units
 struct Mem_unit{
     bool is_empty;
     Reservation_name target_name;
@@ -85,6 +89,7 @@ struct Mem_unit{
 
 
 
+//ROB
 struct ROB{
     //circular queues
     ROB_cell Arr[8];
@@ -115,6 +120,7 @@ struct ROB{
 
 
 
+//default constructor
 Res_add::Res_add(){
     Name[0]=ADD0;
     Name[1]=ADD1;
@@ -147,6 +153,11 @@ ROB::ROB(){
     tail=1;
 }
 
+
+
+
+
+//part add reservation
 Reservation_name Res_add::push(Reservation_cell &other){
     int i;
     for(i=0; i<4; ++i){
@@ -211,7 +222,7 @@ void Res_add::clear(){
 
 
 
-
+//part Load buffers
 Reservation_name Res_loa::push(Reservation_cell &other){
     int i;
     for(i=0; i<5; ++i){
@@ -289,7 +300,7 @@ void Res_loa::clear(){
 
 
 
-
+//part ROB
 void ROB::set_ROB(ROB_cell &other){
     Arr[tail]=other;
     if(other.target)  T_register[other.target].Qi=Name[tail];
@@ -328,6 +339,7 @@ void ROB::clear(){
     tail=1;
 }
 
+//ensure the order of L/S instruction
 bool ROB::check_Ma(Reservation_name cur_name, uint tmp_add){
     for(int i=(head+1)%8; Arr[i].Qi!=cur_name; i=(i+1)%8){
         if(Arr[i].Op>=25 && Arr[i].Op<=27){
@@ -408,7 +420,7 @@ void rename_rob(ROB &cur_rob, ROB_cell &cur_res, uint rs1, uint rs2){
 
 
 
-//predict part
+//part predict
 bool judge_branch(uint hash_value, instruction_decoder &cur_dins){
     //banche predict(2-bit)
     if(app_time[hash_value]<8){
@@ -454,7 +466,7 @@ void record_branch(uint res, uint hash_value){
 
 
 
-
+//part register
 void clear_register(){
     for(int i=1; i<32; ++i)  T_register[i].Qi = NAME0;
 }

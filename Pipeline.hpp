@@ -116,10 +116,11 @@ void Issue(ROB &cur_ROB, Res_add &cur_Ra, Res_loa &cur_Rl){
     else  _pc += 4;
 
     cur_ROB.set_ROB(tmp_rob);
-
-    //for debug
-    //if(cur_dins._rd == 1)  printf("%u %u\n", cur_dins._rs1, cur_dins._rs2);
 }
+
+
+
+
 
 void Ex_add(Res_add &cur_Ra, Adder &cur_Ad){
     Reservation_cell tmp;
@@ -149,6 +150,10 @@ void Ex_add(Res_add &cur_Ra, Adder &cur_Ad){
     cur_Ad.target_name = for_wb;
     cur_Ad.is_empty = false;
 }
+
+
+
+
 
 void Ex_loa(Res_loa &cur_Rl, Mem_unit &cur_Ma, ROB &cur_ROB){
     Reservation_cell tmp;
@@ -196,6 +201,10 @@ void Ex_loa(Res_loa &cur_Rl, Mem_unit &cur_Ma, ROB &cur_ROB){
     cur_Ma.cur_period = 1;
 }
 
+
+
+
+
 void Broadcast(Adder &cur_Ad, Mem_unit &cur_Ma, Res_add &cur_Ra, Res_loa &cur_Rl, ROB &cur_ROB){
     if(!cur_Ad.is_empty){
         cur_Ra.update(cur_Ad.target_name, cur_Ad._value);
@@ -218,6 +227,10 @@ void Broadcast(Adder &cur_Ad, Mem_unit &cur_Ma, Res_add &cur_Ra, Res_loa &cur_Rl
         }
     }
 }
+
+
+
+
 
 void Commit(ROB &cur_ROB, Mem_unit &cur_Ma, Res_add &cur_Ra, Res_loa &cur_Rl, Adder &cur_Ad){
     Reservation_name for_wb;
@@ -301,7 +314,6 @@ void Commit(ROB &cur_ROB, Mem_unit &cur_Ma, Res_add &cur_Ra, Res_loa &cur_Rl, Ad
 
     //for debug
     //printf("%s %u\n", TYPES[tmp.Op], tmp.Regs);
-    //if(tmp.target==10)  printf("%s %u\n", TYPES[tmp.Op], (T_register[10].Regs)&255);
 }
 
 #endif
