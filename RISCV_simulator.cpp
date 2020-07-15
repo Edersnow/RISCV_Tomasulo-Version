@@ -1,41 +1,22 @@
 #include "Pipeline.hpp"
 
+Res_add add_reservation;
+Res_loa loa_reservation;
+Adder adders;
+Mem_unit memory_access;
+ROB rob;
+
 int main()
 {
-    Res_add add_reservation;
-    Res_loa loa_reservation;
-    Adder adders;
-    Mem_unit memory_access;
-    ROB rob;
     uint cnt=1;
     uint memory_start;
     char _input[20];
 
-
     for(int i=0;i<64;++i)
-        for(int j=0;j<16;++j)
+        for(int j=0;j<256;++j)
             PHT[i][j]=1;
     for(int i=0;i<65536;++i)
         PHT_for_BHR[i]=1;
-
-
-    //debug path
-    /*
-    if(!freopen("PPCA_2020/testcases/queens.data", "r", stdin)){
-        printf("Error in reading!\n");
-        return 0;
-    }
-    printf("Freopen successfully!\n");
-    */
-
-    /*
-    if(!freopen("testcases/bulgarian.data", "r", stdin)){
-        printf("Error in reading!\n");
-        return 0;
-    }
-    //printf("Freopen successfully!\n");
-    */
-
 
     while(scanf("%s", _input)!=EOF){
         if(_input[0]=='@')  sscanf(_input+1, "%x", &memory_start);
@@ -53,13 +34,12 @@ int main()
     //simulate
     while (!is_end){
         //printf("%u\n", cnt++);
-        ++cnt;
+        //++cnt;
         Commit(rob, memory_access, add_reservation, loa_reservation, adders);
         Broadcast(adders, memory_access, add_reservation, loa_reservation, rob);
         Ex_add(add_reservation, adders);
         Ex_loa(loa_reservation, memory_access, rob);
         Issue(rob, add_reservation, loa_reservation);
-        //if(cnt==500)  break;
     }
 
     //printf("%u\n", cnt);

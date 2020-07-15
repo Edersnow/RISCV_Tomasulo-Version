@@ -226,7 +226,7 @@ Reservation_name Res_loa::push(Reservation_cell &other){
 
 Reservation_cell Res_loa::find(Reservation_name &cur_name){
     Reservation_cell tmp;
-    for(int i=0; i<4; ++i){
+    for(int i=0; i<5; ++i){
         if(Arr[i].Busy && Arr[i].isReady && !Arr[i].Qj){
             cur_name = Name[i];
             tmp=Arr[i];
@@ -242,22 +242,6 @@ void Res_loa::pop(Reservation_name cur_name){
     --TmpReady;
 }
 
-/*
-void Res_loa::pop(Reservation_name cur_name){
-    Reservation_cell tmp;
-    for(int i=0; i<4; ++i){
-        if(Arr[i].Busy && Arr[i].isReady && !Arr[i].Qj){
-            cur_name = Name[i];
-            tmp=Arr[i];
-            Arr[i].isExing = true;
-            Arr[i].isReady = false;
-            --TmpReady;
-            break;
-        }
-    }
-    return tmp;
-}
-*/
 void Res_loa::update(Reservation_name cur_name, uint val){
     for(int i=0; i<5; ++i){
         if(Arr[i].Busy){
@@ -301,7 +285,6 @@ ROB_cell ROB::top_ROB(Reservation_name &cur_name){
 
 void ROB::pop_ROB(){
     Arr[head=(head+1)%5].Busy=false;
-
 }
 
 void ROB::update(Reservation_name cur_name, uint val){
@@ -453,18 +436,6 @@ void record_branch(uint res, uint hash_value){
 
 
 
-//register
-/*
-void update_register(Reservation_name cur_name, uint val){
-    for(int i=1; i<32; ++i){
-        if(T_register[i].Qi == cur_name){
-            T_register[i].Regs = val;
-            T_register[i].Qi = NAME0;
-            return;
-        }
-    }
-}
-*/
 
 void clear_register(){
     for(int i=1; i<32; ++i)  T_register[i].Qi = NAME0;

@@ -33,8 +33,8 @@ uint total_prediction;
 uint correct_prediction;
 
 //for debug
-const char *TYPES[]={"ADD","SUB","SLL","SLT","SLTU","XOR","SRL","SRA","OR","AND",
-"JALR","LB","LH","LW","LBU","LHU","ADDI","SLTI","SLTIU","XORI","ORI","ANDI","SLLI","SRLI",
-"SRAI","SB","SH","SW", "BEQ","BNE","BLT","BGE","BLTU","BGEU","LUI","AUIPC","JAL" };
+//const char *TYPES[]={"ADD","SUB","SLL","SLT","SLTU","XOR","SRL","SRA","OR","AND",
+//"JALR","LB","LH","LW","LBU","LHU","ADDI","SLTI","SLTIU","XORI","ORI","ANDI","SLLI","SRLI",
+//"SRAI","SB","SH","SW", "BEQ","BNE","BLT","BGE","BLTU","BGEU","LUI","AUIPC","JAL" };
 
 #endif
