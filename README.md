@@ -5,8 +5,8 @@ The simulator adopt the Tomasulo algorithm (with ROB) to simulate Out-of-order e
 
 The prediction part is the same as the [5-Stages Pipeline version](https://github.com/Edersnow/RISCV_5-Stages-Pipeline-Version). But the results are quite different in some tests (probably because the delay of recording the result) :
 
-|Test|Correction/Total|Accuracy|
-|:--:|:--------------:|-------:|
+|Test|Correct/Total|Accuracy|
+|:--:|:-----------:|-------:|
 |basicopt1|136586/155139|88.04%|
 |bulgarian|49342/71493|69.02%|
 |hanoi|16755/17457|95.98%|
