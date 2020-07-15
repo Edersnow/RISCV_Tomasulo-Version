@@ -1,10 +1,8 @@
 #ifndef __Global
 #define __Global
-
-#include <bits/stdc++.h>
 #include "Basic.hpp"
 
-unsigned char _memory[10000000];
+unsigned char _memory[3000000];
 uint _pc;
 Register_cell T_register[32];
 bool stop_issue;

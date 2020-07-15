@@ -1,5 +1,6 @@
 #ifndef __BASIC
 #define __BASIC
+#include <bits/stdc++.h>
 typedef unsigned int uint;
 
 enum typeT{
