@@ -16,7 +16,7 @@ enum Reservation_name{
     NAME0,
     ADD0, ADD1, ADD2, ADD3,
     LOA0, LOA1, LOA2, LOA3, LOA4,
-    ROB0, ROB1, ROB2, ROB3, ROB4
+    ROB0, ROB1, ROB2, ROB3, ROB4, ROB5, ROB6, ROB7
 };
 
 struct Register_cell{

@@ -156,8 +156,12 @@ void Ex_loa(Res_loa &cur_Rl, Mem_unit &cur_Ma, ROB &cur_ROB){
     if(!cur_Rl.isReady() || !cur_Ma.is_empty)  return;
 
     tmp=cur_Rl.find(for_wb);
-    if(!cur_ROB.check_Ma(for_wb, tmp.Vj))  return;
+    while(!cur_ROB.check_Ma(for_wb, tmp.Vj)){
+        tmp=cur_Rl.find_next(for_wb);
+        if(for_wb==NAME0)  return;
+    }
     cur_Rl.pop(for_wb);
+
     switch (tmp.Op){
         case LB:
             char tmp1;
@@ -204,9 +208,6 @@ void Broadcast(Adder &cur_Ad, Mem_unit &cur_Ma, Res_add &cur_Ra, Res_loa &cur_Rl
             ++cur_Ma.cur_period;
             return;
         }
-
-        ///TODO: fix bugs
-
         else{ 
             cur_Ma.is_empty = true;
             if(cur_Ma.target_name != NAME0){

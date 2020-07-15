@@ -50,6 +50,7 @@ struct Res_loa{
 
     Reservation_name push(Reservation_cell &other);
     Reservation_cell find(Reservation_name &cur_name);
+    Reservation_cell find_next(Reservation_name &cur_name);
     void pop(Reservation_name cur_name);
     void update(Reservation_name cur_name, uint val);
     void clear();
@@ -86,16 +87,16 @@ struct Mem_unit{
 
 struct ROB{
     //circular queues
-    ROB_cell Arr[5];
-    Reservation_name Name[5];
+    ROB_cell Arr[8];
+    Reservation_name Name[8];
     uint head;
     uint tail;
 
 
 
     ROB();
-    bool isFull() {return (tail+1)%5 == head;}
-    bool isEmpty() {return tail == (head+1)%5;}
+    bool isFull() {return (tail+1)%8 == head;}
+    bool isEmpty() {return tail == (head+1)%8;}
     void set_ROB(ROB_cell &other);
     ROB_cell top_ROB(Reservation_name &cur_name);
     void pop_ROB();
@@ -139,6 +140,9 @@ ROB::ROB(){
     Name[2]=ROB2;
     Name[3]=ROB3;
     Name[4]=ROB4;
+    Name[5]=ROB5;
+    Name[6]=ROB6;
+    Name[7]=ROB7;
     head=0;
     tail=1;
 }
@@ -236,6 +240,20 @@ Reservation_cell Res_loa::find(Reservation_name &cur_name){
     return tmp;
 }
 
+Reservation_cell Res_loa::find_next(Reservation_name &cur_name){
+    Reservation_cell tmp;
+    int i=cur_name-LOA0+1;
+    for(; i<5; ++i){
+        if(Arr[i].Busy && Arr[i].isReady && !Arr[i].Qj){
+            cur_name = Name[i];
+            tmp=Arr[i];
+            break;
+        }
+    }
+    if(i==5)  cur_name=NAME0;
+    return tmp;
+}
+
 void Res_loa::pop(Reservation_name cur_name){
     Arr[cur_name-LOA0].isExing = true;
     Arr[cur_name-LOA0].isReady = false;
@@ -275,20 +293,20 @@ void Res_loa::clear(){
 void ROB::set_ROB(ROB_cell &other){
     Arr[tail]=other;
     if(other.target)  T_register[other.target].Qi=Name[tail];
-    tail=(tail+1)%5;
+    tail=(tail+1)%8;
 }
 
 ROB_cell ROB::top_ROB(Reservation_name &cur_name){
-    cur_name = Name[(head+1)%5];
-    return Arr[(head+1)%5];
+    cur_name = Name[(head+1)%8];
+    return Arr[(head+1)%8];
 }
 
 void ROB::pop_ROB(){
-    Arr[head=(head+1)%5].Busy=false;
+    Arr[head=(head+1)%8].Busy=false;
 }
 
 void ROB::update(Reservation_name cur_name, uint val){
-    for(int i=(head+1)%5; i!=tail; i=(i+1)%5){
+    for(int i=(head+1)%8; i!=tail; i=(i+1)%8){
         if(Arr[i].Busy){
             if(Arr[i].Qi == cur_name){
                 Arr[i].Regs=val;
@@ -305,13 +323,13 @@ void ROB::update(Reservation_name cur_name, uint val){
 }
 
 void ROB::clear(){
-    for(int i=0; i<5; ++i)  Arr[i].Busy=false;
+    for(int i=0; i<8; ++i)  Arr[i].Busy=false;
     head=0;
     tail=1;
 }
 
 bool ROB::check_Ma(Reservation_name cur_name, uint tmp_add){
-    for(int i=(head+1)%5; Arr[i].Qi!=cur_name; i=(i+1)%5){
+    for(int i=(head+1)%8; Arr[i].Qi!=cur_name; i=(i+1)%8){
         if(Arr[i].Op>=25 && Arr[i].Op<=27){
             if(Arr[i].Qs!=NAME0 || Arr[i].Vs == tmp_add)
                 return false;
