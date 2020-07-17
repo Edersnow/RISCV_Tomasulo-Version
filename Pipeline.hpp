@@ -1,6 +1,6 @@
 #ifndef __PIPELINE
 #define __PIPELINE
-#include "Conponent.hpp"
+#include "Component.hpp"
 
 void Issue(ROB &cur_ROB, Res_add &cur_Ra, Res_loa &cur_Rl){
     instruction_decoder cur_dins;
