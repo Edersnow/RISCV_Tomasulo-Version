@@ -17,4 +17,6 @@ The prediction part is the same as the [5-Stages Pipeline version](https://githu
 |superloop|393600/435027|90.48%|
 |tak|50250/60639|82.87%|
 
+BTW, I encapsulate some conponents and only provide some interfaces for use in this version, so the structure of this version may be better than the previous one...
+
 Reference & more information: [acm_wiki](https://acm.sjtu.edu.cn/wiki/PPCA_2020)
